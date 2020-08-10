@@ -21,10 +21,10 @@ def otsu_binarization(img):
 	H, W = img.shape
 	# determine threshold
 	for _t in range(1, 256):
-		v0 = out[np.where(out < _t)]
+		v0 = img[np.where(img < _t)]
 		m0 = np.mean(v0) if len(v0) > 0 else 0.
 		w0 = len(v0) / (H * W)
-		v1 = out[np.where(out >= _t)]
+		v1 = img[np.where(img >= _t)]
 		m1 = np.mean(v1) if len(v1) > 0 else 0.
 		w1 = len(v1) / (H * W)
 		sigma = w0 * w1 * ((m0 - m1) ** 2)
@@ -35,10 +35,10 @@ def otsu_binarization(img):
 	# Binarization
 	print("threshold >>", max_t)
 	th = max_t
-	out[out < th] = 0
-	out[out >= th] = 255
+	img[img < th] = 0
+	img[img >= th] = 255
 
-	return out
+	return img
 
 
 # Read image
